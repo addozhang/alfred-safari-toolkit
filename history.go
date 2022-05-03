@@ -2,11 +2,13 @@ package main
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"time"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -38,7 +40,7 @@ func search() error {
 		return err
 	}
 	defer db.Close()
-	query := fmt.Sprintf("%%%s%%", os.Args[3])
+	query := fmt.Sprintf("%%%s%%", strings.Join(strings.Split(os.Args[3], " "), "%"))
 	rows, err := db.Query(QUERY, query, query)
 	if err != nil {
 		return err
@@ -51,7 +53,7 @@ func search() error {
 		if err != nil {
 			return err
 		}
-		if !title.Valid {
+		if !title.Valid || len(title.String) == 0 {
 			title.String = url.String
 		}
 		wf.NewItem(title.String).
@@ -60,18 +62,17 @@ func search() error {
 			Subtitle(url.String).
 			Arg(url.String)
 	}
-	if os.Args[3] != "" {
-		wf.Filter(os.Args[3])
-	}
 	wf.WarnEmpty("No matching history found", "Try another?")
 	wf.SendFeedback()
 	return nil
 }
 
 func cache(src, dst string) error {
-	if file, err := os.Stat(dst); err != nil {
+	file, err := os.Stat(dst)
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
 		return err
-	} else if time.Now().After(file.ModTime().Add(time.Second * 60)) {
+	}
+	if file != nil && time.Now().After(file.ModTime().Add(time.Second*60)) {
 		return nil
 	}
 	source, err := ioutil.ReadFile(src)
