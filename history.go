@@ -4,14 +4,13 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	_ "github.com/mattn/go-sqlite3"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
 	"time"
-
-	_ "github.com/mattn/go-sqlite3"
 )
 
 var (
@@ -72,7 +71,7 @@ func cache(src, dst string) error {
 	if err != nil && !errors.Is(err, os.ErrNotExist) {
 		return err
 	}
-	if file != nil && time.Now().After(file.ModTime().Add(time.Second*60)) {
+	if file != nil && time.Now().Before(file.ModTime().Add(time.Second*60)) {
 		return nil
 	}
 	source, err := ioutil.ReadFile(src)
