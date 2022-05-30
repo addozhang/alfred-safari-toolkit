@@ -2,15 +2,12 @@ package main
 
 import (
 	"database/sql"
-	"errors"
 	"fmt"
 	_ "github.com/mattn/go-sqlite3"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strconv"
 	"strings"
-	"time"
 )
 
 var (
@@ -26,15 +23,12 @@ ORDER BY visit_time DESC
 `
 )
 
-func search() error {
+func searchHistory() error {
+	showUpdateStatus()
+
 	home, _ := os.UserHomeDir()
 	dbPath := filepath.Join(home, DBPath)
-	cachePath := filepath.Join(wf.CacheDir(), "history.db")
-	if err := cache(dbPath, cachePath); err != nil {
-		return err
-	}
-
-	db, err := sql.Open("sqlite3", cachePath)
+	db, err := sql.Open("sqlite3", dbPath)
 	if err != nil {
 		return err
 	}
@@ -64,20 +58,4 @@ func search() error {
 	wf.WarnEmpty("No matching history found", "Try another?")
 	wf.SendFeedback()
 	return nil
-}
-
-func cache(src, dst string) error {
-	file, err := os.Stat(dst)
-	if err != nil && !errors.Is(err, os.ErrNotExist) {
-		return err
-	}
-	if file != nil && time.Now().Before(file.ModTime().Add(time.Second*60)) {
-		return nil
-	}
-	source, err := ioutil.ReadFile(src)
-	if err != nil {
-		return err
-	}
-	err = ioutil.WriteFile(dst, source, 0644)
-	return err
 }
