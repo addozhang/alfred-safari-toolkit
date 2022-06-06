@@ -22,3 +22,9 @@ After running `alfred pack`, you will find the workflow package under `workflow`
 ## Versioning
 
 The current version is 1.0.0 which covers tupton/alfred-safari-history features. In the next version, planning to involve in the Safari tabs searching feature.
+
+## FAQ
+
+1. If you encounter "Cannot Be Opened Because the Developer Cannot be Verified" in first running, please click the "Cancel" and go to "System Preferences > Security & Privacy", then click "Allow Anyway". In the following pop window of next running, choose "Open".
+
+
