@@ -4,6 +4,8 @@ import (
 	aw "github.com/deanishe/awgo"
 	"github.com/deanishe/awgo/update"
 	"log"
+	"os"
+	"path/filepath"
 )
 
 var (
@@ -14,7 +16,11 @@ var (
 
 func init() {
 	wf = aw.New(update.GitHub(repo), aw.HelpURL(repo+"/issues"))
-
+	//init icon cache folder
+	iconPath := filepath.Join(wf.CacheDir(), "/favicons")
+	if _, err := os.Stat(iconPath); os.IsNotExist(err) {
+		os.Mkdir(iconPath, os.ModePerm)
+	}
 }
 
 func main() {

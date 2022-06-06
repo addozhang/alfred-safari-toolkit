@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+	aw "github.com/deanishe/awgo"
 	_ "github.com/mattn/go-sqlite3"
 	"os"
 	"path/filepath"
@@ -20,6 +21,7 @@ ON history_visits.history_item = history_items.id
 WHERE url LIKE ? OR title LIKE ?
 GROUP BY url
 ORDER BY visit_time DESC
+LIMIT 50
 `
 )
 
@@ -49,11 +51,17 @@ func searchHistory() error {
 		if !title.Valid || len(title.String) == 0 {
 			title.String = url.String
 		}
-		wf.NewItem(title.String).
+		item := wf.NewItem(title.String).
 			Valid(true).
 			UID(strconv.Itoa(id)).
 			Subtitle(url.String).
 			Arg(url.String)
+		iconPath := lookupFavicon(url.String)
+		if iconPath != "" {
+			item.Icon(&aw.Icon{
+				Value: iconPath,
+			})
+		}
 	}
 	wf.WarnEmpty("No matching history found", "Try another?")
 	wf.SendFeedback()
