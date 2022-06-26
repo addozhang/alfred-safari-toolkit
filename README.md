@@ -21,4 +21,10 @@ After running `alfred pack`, you will find the workflow package under `workflow`
 
 ## Versioning
 
-The current version is 1.0.0 which covers tupton/alfred-safari-history features. In the next version, planning to involve in the Safari tabs searching feature.
+The current version is 1.0.2 which covers tupton/alfred-safari-history features. In the next version, planning to involve in the Safari tabs searching feature.
+
+## Platform
+
+The latest version 1.0.2 has been tested on Mac m1 pro and macOS 12.3.1.
+
+If it works or not on other platforms, I'm very glad to know your feedback.
