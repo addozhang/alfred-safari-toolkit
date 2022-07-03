@@ -28,7 +28,9 @@ func run() {
 	args := wf.Args()
 	switch args[0] {
 	case "history":
-		searchHistory()
+		if err := searchHistory(); err != nil {
+			log.Fatalf("search failed with %s", err.Error())
+		}
 		//TODO: more action such as tab searching
 	}
 }

@@ -16,8 +16,9 @@ Download the workflow from [release page](https://github.com/addozhang/alfred-sa
 
 It's recommended to [go-alfred](https://github.com/jason0x43/go-alfred) for workflow packaging.
 
-First, install is by executing `go install github.com/jason0x43/go-alfred/alfred@latest`.
-After running `alfred pack`, you will find the workflow package under `workflow` folder. 
+1. First, install is by executing `go install github.com/jason0x43/go-alfred/alfred@latest`.
+2. After running `CGO_ENABLED=1 alfred build` to build project, you will get the execution binary under `workflow` folder. 
+3. At last, run `alfred pack` and the workflow package will present in root folder. 
 
 ## Versioning
 
@@ -25,6 +26,15 @@ The current version is 1.0.2 which covers tupton/alfred-safari-history features.
 
 ## Platform
 
-The latest version 1.0.2 has been tested on Mac m1 pro and macOS 12.3.1.
+The latest version 1.0.3 has been tested below platform:
+
+* macOS 12.3.1 with Apple Silicon CPU
+* macOS 10.15.5 with Intel CPU
 
 If it works or not on other platforms, I'm very glad to know your feedback.
+
+## FAQ
+
+### Why use `CGO_ENABLED=1`?
+
+This workflow depends on sqlite3 to query history from sqlist3 file. sqlite3 requires CGO support. 
