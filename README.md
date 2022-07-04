@@ -29,7 +29,7 @@ The current version is 1.0.2 which covers tupton/alfred-safari-history features.
 The latest version 1.0.3 has been tested below platform:
 
 * macOS 12.3.1 with Apple Silicon CPU
-* macOS 10.15.5 with Intel CPU
+* macOS 10.15.5, 12.4 with Intel CPU
 
 If it works or not on other platforms, I'm very glad to know your feedback.
 
