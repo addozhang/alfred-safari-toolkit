@@ -22,11 +22,11 @@ It's recommended to [go-alfred](https://github.com/jason0x43/go-alfred) for work
 
 ## Versioning
 
-The current version is 1.0.2 which covers tupton/alfred-safari-history features. In the next version, planning to involve in the Safari tabs searching feature.
+The current version covers tupton/alfred-safari-history features. In the next version, planning to involve in the Safari tabs searching feature.
 
 ## Platform
 
-The latest version 1.0.3 has been tested below platform:
+The latest version has been tested below platform:
 
 * macOS 12.3.1 with Apple Silicon CPU
 * macOS 10.15.5, 12.4 with Intel CPU
