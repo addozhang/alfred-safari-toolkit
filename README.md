@@ -12,6 +12,8 @@ So I decided to write one in Go by referring to it.
 
 Download the workflow from [release page](https://github.com/addozhang/alfred-safari-toolkit/releases) and double click.
 
+Make sure Alfred has full disk access otherwise it won't be able to access history.db file.
+
 ## How to build
 
 It's recommended to [go-alfred](https://github.com/jason0x43/go-alfred) for workflow packaging.
